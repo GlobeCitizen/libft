@@ -6,7 +6,7 @@
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 22:40:36 by mahnich           #+#    #+#             */
-/*   Updated: 2019/11/15 23:43:04 by mahnich          ###   ########.fr       */
+/*   Updated: 2019/11/29 03:56:53 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void				*ft_memset(void	*str, int c, size_t n);
 void				ft_bzero(void	*s, size_t	n);
 void				*ft_memcpy(void	*dst, const void	*src, size_t n);
-void				*ft_memcpy(void	*dst, const void	*src, size_t n);
+void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memmove(void	*dst, const void	*src, size_t len);
 void				*ft_memchr(const void	*s, int c, size_t n);
 int					ft_memcmp(const void	*s1, const void	*s2, size_t n);
@@ -28,7 +28,7 @@ size_t				ft_strlen(const char	*s);
 
 int					ft_isalpha(int	c);
 int					ft_isdigit(int c);
-int					ft_alnum(int c);
+int					ft_isalnum(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
@@ -52,7 +52,7 @@ char				*ft_substr(char	const	*s, unsigned int	start,
 					size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const	*s1, char const *set);
-char				*ft_split(char const *s, char c);
+char				**ft_split(char const *s, char c);
 
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 

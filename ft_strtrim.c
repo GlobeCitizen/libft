@@ -6,15 +6,15 @@
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 00:01:35 by mahnich           #+#    #+#             */
-/*   Updated: 2019/11/16 00:58:03 by mahnich          ###   ########.fr       */
+/*   Updated: 2019/11/29 00:29:44 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		is_in(const char c, const char *set)
+static int		is_in(const char c, const char *set)
 {
-	while(*set)
+	while (*set)
 	{
 		if (c == *set)
 			return (1);
@@ -22,7 +22,8 @@ int		is_in(const char c, const char *set)
 	}
 	return (0);
 }
-int		len_trimmed(const char *s, const char *set)
+
+static int		len_trimmed(const char *s, const char *set)
 {
 	int i;
 	int j;
@@ -31,22 +32,31 @@ int		len_trimmed(const char *s, const char *set)
 	j = 0;
 	while (is_in(s[i], set))
 		i++;
-	while (is_in(s[ft_strlen(s) - j], set))
+	if (!s[i])
+		return (-1);
+	while (is_in(s[ft_strlen(s) - j - 1], set))
 		j++;
-	return (ft_strlen(s) - (i + j));
+	return (i + j);
 }
 
-char	*ft_strtrim(char const *s1, char const *set)
+char			*ft_strtrim(char const *s1, char const *set)
 {
 	char	*trimmed;
-	int len;
+	int		len;
+	size_t	start;
 
-	len = ft_strlen(s1) - len_trimmed(s1, set);
+	start = 0;
+	if (!s1)
+		return (NULL);
+	if (!set)
+		return (ft_strdup(s1));
+	if ((len = len_trimmed(s1, set)) == -1)
+		return (ft_strdup(""));
+	len = ft_strlen(s1) - len;
 	if (!(trimmed = (char *)malloc((len + 1) * sizeof(char))))
 		return (NULL);
-	while (is_in(*s1, set))
-		s1++;
-	ft_memmove(trimmed, s1, len);
-	trimmed[len] = 0;
+	while (is_in(s1[start], set))
+		start++;
+	ft_strlcpy(trimmed, s1 + start, len + 1);
 	return (trimmed);
 }

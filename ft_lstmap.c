@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 21:57:30 by mahnich           #+#    #+#             */
-/*   Updated: 2019/11/16 05:36:48 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/29 03:13:56 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/29 04:40:24 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int		len1;
-	int		len2;
-	char	*str;
+	t_list	*new;
+	t_list	*head;
 
-	if (!s1 || !s2)
+	if (!lst || !f)
 		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(str = (char *)malloc((len1 + len2) * sizeof(char) + 1)))
+	if (!(new = ft_lstnew(f(lst->content))))
 		return (NULL);
-	ft_memmove((void *)str, (void *)s1, len1);
-	ft_memmove((void *)(str + len1), (void *)s2, len2 + 1);
-	return (str);
+	head = new;
+	while (lst->next)
+	{
+		lst = lst->next;
+		if (!(new->next = ft_lstnew(f(lst->content))))
+		{
+			ft_lstclear(&head, del);
+			return (NULL);
+		}
+		new = new->next;
+	}
+	return (head);
 }

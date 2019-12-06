@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/15 21:57:30 by mahnich           #+#    #+#             */
-/*   Updated: 2019/11/16 05:36:48 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/28 20:21:25 by mahnich           #+#    #+#             */
+/*   Updated: 2019/11/29 04:10:37 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_lstsize(t_list *lst)
 {
-	int		len1;
-	int		len2;
-	char	*str;
+	int size;
 
-	if (!s1 || !s2)
-		return (NULL);
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	if (!(str = (char *)malloc((len1 + len2) * sizeof(char) + 1)))
-		return (NULL);
-	ft_memmove((void *)str, (void *)s1, len1);
-	ft_memmove((void *)(str + len1), (void *)s2, len2 + 1);
-	return (str);
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
 }

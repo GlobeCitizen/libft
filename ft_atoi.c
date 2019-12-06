@@ -6,7 +6,7 @@
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 05:00:13 by mahnich           #+#    #+#             */
-/*   Updated: 2019/11/14 09:06:11 by mahnich          ###   ########.fr       */
+/*   Updated: 2019/11/29 00:26:11 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_atoi(const char *str)
 {
 	char	*p;
-	int		result;
+	long	result;
 	int		sign;
 
 	result = 0;
@@ -29,6 +29,8 @@ int	ft_atoi(const char *str)
 		sign = -1;
 		p++;
 	}
+	else if (*p == '+')
+		p++;
 	if (*p == '+' || *p == '-')
 		return (0);
 	while (*p <= '9' && *p >= '0')
