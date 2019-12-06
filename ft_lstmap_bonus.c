@@ -1,36 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnstr.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahnich <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/14 03:43:01 by mahnich           #+#    #+#             */
-/*   Updated: 2019/12/06 17:07:55 by mahnich          ###   ########.fr       */
+/*   Created: 2019/11/29 05:14:21 by mahnich           #+#    #+#             */
+/*   Updated: 2019/12/06 15:54:27 by mahnich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	size_t i;
-	size_t j;
+	t_list	*element;
+	t_list	*lstmap;
 
-	i = 0;
-	while (!(j = 0) && i < len && haystack[i] && needle[j])
+	if (lst && f)
 	{
-		if (haystack[i] == needle[j])
+		if ((lstmap = ft_lstnew(f(lst->content))))
 		{
-			while (i + j < len && (haystack[i + j] || needle[j]) &&
-					haystack[i + j] == needle[j])
-				j++;
-			if (!needle[j] && haystack[i])
-				return ((char *)&haystack[i]);
+			element = lstmap;
+			while (lstmap && (lst = lst->next))
+			{
+				if ((lstmap->next = ft_lstnew(f(lst->content))))
+					lstmap = lstmap->next;
+				else
+				{
+					ft_lstclear(&element, del);
+					return (NULL);
+				}
+			}
+			return (element);
 		}
-		i++;
 	}
-	if (needle && !needle[j])
-		return ((char *)haystack);
 	return (NULL);
 }
